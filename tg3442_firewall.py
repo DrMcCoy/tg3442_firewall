@@ -130,8 +130,8 @@ def print_firewall_status(status):
 def set_firewall(session, url, enable):
     """ Set the firewall status """
 
-    y = json.dumps({ "fwEnable": "true" if enable else "false" })
-    r = session.post(f"{url}/php/ajaxSet_net_firewall_data.php", data={'fwData': y})
+    y = json.dumps({ "Enable": "true" if enable else "false" })
+    r = session.put(f"{url}/php/ajaxSet_net_firewall_data.php", data=y)
 
 def main():
     if len(sys.argv) != 5:
