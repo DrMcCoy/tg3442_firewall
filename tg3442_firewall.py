@@ -120,7 +120,7 @@ def login(session, url, username, password):
 def get_firewall_status(session, url):
     """ Query the current firewall status """
 
-    r = session.get(f"{url}/php/net_firewall_data.php", params={'fwData[FirewallLevel]': ""})
+    r = session.get(f"{url}/php/net_firewall_data.php")
     status = json.loads(r.text)
     if status['FirewallLevel'] == "None":
         return False
