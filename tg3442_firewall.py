@@ -49,33 +49,31 @@ import os
 def login(session, url, username, password):
     """ Log in """
 
-    # Get login page, parse and read session ID
+    # Get login page, parse and read session ID, Iv, Salt
     r = session.get(f"{url}")
     h = BeautifulSoup(r.text, "lxml")
     current_session_id = re.search(r".*var currentSessionId = '(.+)';.*", h.head.text)[1]
+    iv = re.search(r".*var myIv = '(.+)';.*", h.head.text)[1]
+    salt = re.search(r".*var mySalt = '(.+)';.*", h.head.text)[1]
 
-    # Encrypt password
-    salt = os.urandom(8)
-    iv = os.urandom(8)
     key = hashlib.pbkdf2_hmac(
         'sha256',
         bytes(password.encode("ascii")),
-        salt,
+        binascii.unhexlify(salt),
         iterations=1000,
         dklen=16
     )
     secret = { "Password": password, "Nonce": current_session_id }
     plaintext = bytes(json.dumps(secret).encode("ascii"))
     associated_data = "loginPassword"
-    cipher = AES.new(key, AES.MODE_CCM, iv)
+    cipher = AES.new(key, AES.MODE_CCM, binascii.unhexlify(iv))
     cipher.update(bytes(associated_data.encode("ascii")))
     encrypt_data = cipher.encrypt(plaintext)
     encrypt_data += cipher.digest()
+
     login_data = {
         'EncryptData': binascii.hexlify(encrypt_data).decode("ascii"),
         'Name': username,
-        'Salt': binascii.hexlify(salt).decode("ascii"),
-        'Iv': binascii.hexlify(iv).decode("ascii"),
         'AuthData': associated_data
     }
 
