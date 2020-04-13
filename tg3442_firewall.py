@@ -62,7 +62,7 @@ def login(session, url, username, password):
         bytes(password.encode("ascii")),
         salt,
         iterations=1000,
-        dklen=128/8
+        dklen=16
     )
     secret = { "Password": password, "Nonce": current_session_id }
     plaintext = bytes(json.dumps(secret).encode("ascii"))
