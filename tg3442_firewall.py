@@ -122,10 +122,7 @@ def get_firewall_status(session, url):
 
     r = session.get(f"{url}/php/net_firewall_data.php")
     status = json.loads(r.text)
-    if status['FirewallLevel'] == "None":
-        return False
-
-    return True
+    return status['Enable'] == "true"
 
 def print_firewall_status(status):
     print("Firewall is", "enabled" if status else "disabled")
