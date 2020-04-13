@@ -92,7 +92,12 @@ def login(session, url, username, password):
     if result['p_status'] == "Fail":
         print("Login failure", file=sys.stderr)
         exit(1)
-    csrf_nonce = result['nonce']
+
+    encrypt_data = binascii.unhexlify(result['encryptData'])
+
+    cipher = AES.new(key, AES.MODE_CCM, binascii.unhexlify(iv))
+    cipher.update(bytes("nonce".encode("ascii")))
+    csrf_nonce = cipher.decrypt_and_verify(encrypt_data[:-16],encrypt_data[-16:])
 
     # Prepare headers and set credentials cookie
     session.headers.update({
