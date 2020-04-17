@@ -35,7 +35,10 @@
 
 import binascii
 from bs4 import BeautifulSoup
-from Crypto.Cipher import AES
+try:
+    from Cryptodome.Cipher import AES
+except ImportError:
+    from Crypto.Cipher import AES
 import hashlib
 import json
 import re
