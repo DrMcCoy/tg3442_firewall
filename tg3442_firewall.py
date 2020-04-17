@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # tg3442_firewall - Simple tool to manipulate the Arris TG3442 router firewall
-# Copyright (c) 2019 Sven Hesse <drmccoy@drmccoy.de>
+# Copyright (c) 2019-2020 Sven Hesse <drmccoy@drmccoy.de>
 #
 # Permission to use, copy, and modify this software with or without fee
 # is hereby granted, provided that this entire notice is included in
