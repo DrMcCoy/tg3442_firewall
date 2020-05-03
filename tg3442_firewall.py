@@ -46,6 +46,17 @@ import requests
 import sys
 import os
 
+if not hasattr(AES, 'MODE_CCM'):
+    print("AES CCM mode is not available in the imported crypto module.")
+    print("That can happen if you have installed PyCrypto instead of PyCryptodome(x).")
+    print("")
+    print("Depending on your Python distribution and whether you need the orginal")
+    print("PyCrypto module, you may need to install either pycryptodome or")
+    print("pycryptodomex, via pip or an external package manager.")
+    print("")
+    print("See README.md for details.")
+    exit(1)
+
 def login(session, url, username, password):
     """ Log in """
 
