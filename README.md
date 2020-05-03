@@ -7,6 +7,17 @@ on the Arris TG3442 DOCSIS router, by logging in through the web frontend.
 tg3442_firewall is released under the terms of the 1-clause BSD license.
 See tg3442_firewall.py for details.
 
+Why?
+----
+
+For "security reasons", the Arris TG3442 DOCSIS router automatically re-enables
+its firewall after 24 hours. The firewall then needs to be manually disabled
+again and every 24 hours afterwards. This is of course tedious.
+
+Enter this script. Since it can disable the router's firewall without human
+intervention, it can be used to keep the firewall permanently disabled by,
+for example, having cron or a similar service call it regularly.
+
 Dependencies
 ------------
 
