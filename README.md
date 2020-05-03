@@ -7,6 +7,8 @@ on the Arris TG3442 DOCSIS router, by logging in through the web frontend.
 tg3442_firewall is released under the terms of the 1-clause BSD license.
 See tg3442_firewall.py for details.
 
+[tg3442_firewall can be found on GitHub here.](https://github.com/DrMcCoy/tg3442_firewall)
+
 Why?
 ----
 
